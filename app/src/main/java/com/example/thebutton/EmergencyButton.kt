@@ -1,11 +1,14 @@
 package com.example.thebutton
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,6 +40,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
+@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun EmergencyButton() {
     var expanded by remember { mutableStateOf(false) }
@@ -51,27 +56,36 @@ fun EmergencyButton() {
     )
 
     Box(
-        modifier = Modifier
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onPress = {
-                        expanded = true // Expand when pressed
-                        tryAwaitRelease()
-                        expanded = false // Shrink when released
-                    }
-                )
+        modifier = Modifier.clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = null,
+            enabled = true,
+            onClick = {
+                expanded = true
             }
+        )
+
+//            .pointerInput(Unit) {
+//                detectTapGestures(
+//                    onPress = {
+//                        expanded = true // Expand when pressed
+//                        tryAwaitRelease()
+//                        expanded = false // Shrink when released
+//                    }
+//                )
+//            }
+
     ) {
         Box(
             modifier = Modifier
                 .size(width, height) // Animate size smoothly
                 .clip(
                     RoundedCornerShape(
-                    topStart = if (expanded) 200.dp else 50.dp,
-                    topEnd = if (expanded) 0.dp else 50.dp,
-                    bottomStart = if (expanded) 200.dp else 50.dp,
-                    bottomEnd = if (expanded) 0.dp else 50.dp
-                )
+                        topStart = if (expanded) 200.dp else 50.dp,
+                        topEnd = if (expanded) 0.dp else 50.dp,
+                        bottomStart = if (expanded) 200.dp else 50.dp,
+                        bottomEnd = if (expanded) 0.dp else 50.dp
+                    )
                 )
                 .background(Color.Red),
             contentAlignment = Alignment.Center
@@ -98,32 +112,40 @@ fun Expanded() {
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(Color.Black)
-                    .size(80.dp)
+                    .size(100.dp)
                     .clickable { println("Sending SOS") },
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
-                Column {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Icon(
                         Icons.Default.Warning,
                         contentDescription = "Call",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp))
+                        modifier = Modifier.size(40.dp)
+                    )
                     Text(text = "Send SOS", color = Color.White)
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(Color.Black)
-                    .size(80.dp)
+                    .size(100.dp)
                     .clickable { println("Recording Audio") },
                 contentAlignment = Alignment.Center
             ) {
-                Column {
-                    Icon(painter = painterResource(R.drawable.microphone),
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.microphone),
                         contentDescription = "Call",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)

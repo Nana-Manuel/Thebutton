@@ -20,10 +20,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Box(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .background(Color.White)
             ) {
-                Box(modifier = Modifier.align(Alignment.CenterEnd)) { // Ensure it's placed correctly
+                Box(modifier = Modifier.align(Alignment.CenterEnd))
+                {
                     EmergencyButton()
                 }
             }
@@ -35,5 +37,5 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-        EmergencyButton()
+    EmergencyButton()
 }
