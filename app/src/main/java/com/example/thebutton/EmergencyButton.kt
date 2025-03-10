@@ -47,11 +47,11 @@ fun EmergencyButton() {
 
     // Animate button width & height smoothly
     val width by animateDpAsState(
-        targetValue = if (expanded) 180.dp else 100.dp, // Expand width
+        targetValue = if (expanded) 150.dp else 80.dp, // Expand width
         animationSpec = tween(150), label = "width animation"
     )
     val height by animateDpAsState(
-        targetValue = if (expanded) 300.dp else 100.dp, // Expand height
+        targetValue = if (expanded) 250.dp else 80.dp, // Expand height
         animationSpec = tween(150), label = "height animation"
     )
 
@@ -112,7 +112,7 @@ fun Expanded() {
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(Color.Black)
-                    .size(100.dp)
+                    .size(80.dp)
                     .clickable { println("Sending SOS") },
                 contentAlignment = Alignment.Center,
             ) {
@@ -136,7 +136,7 @@ fun Expanded() {
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(Color.Black)
-                    .size(100.dp)
+                    .size(80.dp)
                     .clickable { println("Recording Audio") },
                 contentAlignment = Alignment.Center
             ) {
